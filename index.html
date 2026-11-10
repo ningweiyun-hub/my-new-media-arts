@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>玻璃花窗：聽得見的碎裂｜新媒體藝術全景課 作品四</title>
+<meta name="description" content="新媒體藝術全景課作品四「音像互動」的創作歷程：moodboard、創作想法、每個版本的實驗紀錄，以及最終版本。">
+<style>
+  :root {
+    --bg: #07090d;
+    --panel: #10141b;
+    --line: #232a35;
+    --text: #e7ebf2;
+    --muted: #97a1b2;
+    --accent: #3DB7E0;
+    --gold: #deb852;
+    --todo-bg: #3a2f12;
+    --todo-line: #8a6d1f;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+    line-height: 1.8;
+    font-size: 17px;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  header.hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  header.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  header.hero .wrap { position: relative; padding-bottom: 48px; }
+  .hero h1 { font-size: clamp(32px, 6vw, 56px); line-height: 1.2; margin: 0 0 12px; text-shadow: 0 2px 18px #000; }
+  .hero p { margin: 0; color: #d6dce6; text-shadow: 0 1px 10px #000; }
+  .kicker { font-size: 14px; letter-spacing: .12em; color: var(--accent); margin-bottom: 8px; }
+  nav.toc { border-bottom: 1px solid var(--line); background: #0b0e13; position: sticky; top: 0; z-index: 5; }
+  nav.toc .wrap { display: flex; gap: 20px; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; font-size: 15px; }
+  nav.toc a { color: var(--muted); text-decoration: none; }
+  nav.toc a:hover { color: var(--text); }
+  section { padding: 56px 0 24px; scroll-margin-top: 40px; }
+  h2 { font-size: 28px; margin: 0 0 8px; }
+  h2 small { display: block; font-size: 14px; color: var(--muted); font-weight: 400; letter-spacing: .08em; }
+  h3 { font-size: 20px; margin: 36px 0 8px; }
+  p.lead { color: #cfd6e2; }
+  .todo {
+    background: var(--todo-bg);
+    border: 1px dashed var(--todo-line);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #f1dfa8;
+    margin: 16px 0;
+  }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  figure img, figure video, figure canvas { display: block; width: 100%; height: auto; background: #000; }
+  #moodboard .grid img { aspect-ratio: 3 / 4; object-fit: cover; }
+  figcaption { padding: 10px 14px; font-size: 14px; color: var(--muted); }
+  .slot {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px;
+    color: var(--muted);
+    font-size: 14px;
+    background: repeating-linear-gradient(45deg, #0d1117, #0d1117 10px, #11161e 10px, #11161e 20px);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .chip { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 4px 12px; font-size: 14px; color: #cfd6e2; }
+  .swatches { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); margin: 16px 0; }
+  .sw { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
+  .sw .ramp { height: 46px; }
+  .sw div.t { padding: 6px 10px; font-size: 13px; color: var(--muted); }
+  .sw div.t b { display: block; color: var(--text); font-weight: 500; }
+  .stage { border-left: 2px solid var(--line); padding-left: 20px; margin: 40px 0; position: relative; }
+  .stage::before { content: ""; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+  .stage.fav::before { background: var(--gold); }
+  .stage .tag { font-size: 13px; color: var(--accent); letter-spacing: .08em; }
+  .stage.fav .tag { color: var(--gold); }
+  .stage h3 { margin-top: 2px; }
+  .stage figure { margin: 14px 0; }
+  .notes { display: grid; gap: 6px; grid-template-columns: 96px 1fr; font-size: 15px; margin: 10px 0; }
+  .notes dt { color: var(--muted); }
+  .notes dd { margin: 0; }
+  blockquote { margin: 10px 0; padding: 8px 16px; border-left: 3px solid var(--gold); color: #f0e2b8; background: #15130c; border-radius: 0 8px 8px 0; }
+  code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: .9em; background: #161b24; padding: 1px 6px; border-radius: 5px; }
+  .embed { position: relative; aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #000; }
+  .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .btn { display: inline-block; border: 1px solid var(--accent); color: var(--text); text-decoration: none; padding: 8px 16px; border-radius: 8px; margin: 10px 10px 0 0; font-size: 15px; }
+  .btn:hover { background: #0f2a35; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 12px 0; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; }
+  footer { border-top: 1px solid var(--line); margin-top: 48px; padding: 28px 0 48px; font-size: 14px; color: var(--muted); }
+
+  /* ===== 風格：實驗筆記（下半部）＋ 教堂花窗（hero） ===== */
+/* D：B 的頁首 + C 的內文 */
+:root{--bg:#f6f5ef;--panel:#fff;--line:#cdd6da;--text:#1e2428;--muted:#5d6970;--accent:#1b6ea3;--gold:#d27400}
+body{background-color:var(--bg);background-image:linear-gradient(#e1e8ec 1px,transparent 1px),linear-gradient(90deg,#e1e8ec 1px,transparent 1px);background-size:24px 24px;font-size:16px}
+.kicker,h2 small,.stage .tag,nav.toc,th,.notes dt,figcaption{font-family:ui-monospace,"SFMono-Regular",Menlo,monospace}
+nav.toc{background:rgba(246,245,239,.96);border-bottom:2px solid var(--text);font-size:14px}
+nav.toc a{color:var(--text)} nav.toc a:hover{color:var(--accent)}
+h2{font-size:26px} h2 small{color:var(--accent);font-size:13px}
+h2 small::before{content:"// "}
+p.lead{color:var(--text)}
+.todo{color:#5c4810;background:#fff3c4}
+figure{position:relative;overflow:visible;background:#fff;border:1px solid #c9c8be;border-radius:2px;padding:8px 8px 0;box-shadow:0 3px 8px rgba(0,0,0,.12);transform:rotate(-.5deg)}
+.grid figure:nth-child(even),.stage:nth-of-type(even) figure{transform:rotate(.6deg)}
+figure::before{content:"";position:absolute;top:-9px;left:50%;width:76px;height:20px;transform:translateX(-50%) rotate(-3deg);background:rgba(255,226,120,.75);z-index:2}
+figcaption{color:var(--muted);font-size:12px;padding:8px 4px 10px}
+.slot{background:repeating-linear-gradient(45deg,#f1f1ea,#f1f1ea 10px,#e9e9e1 10px,#e9e9e1 20px)}
+.chip{border-radius:3px;background:#fff;color:var(--text);border:1px solid var(--text);box-shadow:2px 2px 0 var(--text)}
+.sw{background:#fff;border-radius:2px}
+.stage{border-left:2px dashed #9aa7ad}
+.stage::before{border-radius:2px;background:#fff;border:2px solid var(--accent);width:14px;height:14px;left:-8px}
+.stage.fav::before{background:var(--gold);border-color:var(--gold)}
+.stage .tag{font-size:12px}
+blockquote{background:#fff3b0;border-left:4px solid #e0b400;color:var(--text);border-radius:0}
+code{background:#e8eef1}
+.embed{border:2px solid var(--text);border-radius:2px;box-shadow:5px 5px 0 var(--text)}
+.btn{border:2px solid var(--text);color:var(--text);border-radius:3px;box-shadow:3px 3px 0 var(--text);background:#fff}
+.btn:hover{background:#eaf4fb}
+table{background:#fff;border:1px solid var(--line)}
+footer{font-family:ui-monospace,Menlo,monospace}
+/* 頁首：教堂花窗 */
+.hero h1,.hero p{font-family:"Noto Serif TC","Songti TC",serif}
+.hero h1{font-weight:700}
+header.hero{min-height:78vh;justify-content:center;text-align:center;border-bottom:6px solid #000;box-shadow:0 1px 0 #dcb45c}
+header.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,transparent 30%,rgba(5,4,8,.85) 100%);pointer-events:none}
+header.hero .wrap{z-index:1;padding-bottom:72px}
+.hero h1{font-size:clamp(34px,6.5vw,64px);letter-spacing:.08em;text-shadow:0 0 30px #000,0 2px 4px #000}
+.hero p{color:#d6dce6;text-shadow:0 1px 10px #000}
+.kicker{color:#dcb45c;letter-spacing:.3em;font-size:14px}
+.hero h1{color:#f1eadb}
+/* 時間軸圓點：用 A 的小方塊 */
+.stage::before{border:0;border-radius:0;width:9px;height:9px;left:-4px;top:10px;background:var(--accent)}
+.stage.fav::before{background:var(--gold)}
+
+
+  /* ===== 配色：海玻璃 ===== */
+/* 海玻璃：冷色，跟作品的藍綠一致 */
+:root{--bg:#eef3f2;--panel:#fbfdfd;--line:#c4d3d1;--text:#1b2a2e;--muted:#587074;--accent:#1f7f86;--gold:#b8902f}
+body{background-image:linear-gradient(#d6e3e1 1px,transparent 1px),linear-gradient(90deg,#d6e3e1 1px,transparent 1px)}
+nav.toc{background:rgba(238,243,242,.96)}
+figure{background:#fbfdfd;border-color:#c4d3d1}
+figure::before{background:rgba(160,210,204,.75)}
+blockquote{background:#dcefeb;border-left-color:#5fb3a8}
+.todo{color:#274a4d;background:#d9efe9}
+.slot{background:repeating-linear-gradient(45deg,#e8f0ef,#e8f0ef 10px,#dde8e6 10px,#dde8e6 20px)}
+code{background:#dfeae9}
+.btn:hover{background:#e2f1ef}
+.stage{border-left-color:#9bb8b6}
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="hero"></canvas>
+  <div class="wrap">
+    <div class="kicker">新媒體藝術全景課｜作品四 音像互動</div>
+    <h1>玻璃花窗：<br>聽得見的碎裂</h1>
+    <p>一面不斷長出、合併的玻璃窗，被聲音打碎，又再長回來。</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#moodboard">01 Moodboard 與創作想法</a>
+    <a href="#process">02 實驗與每個版本</a>
+    <a href="#final">03 最終版本</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ 01 ============ -->
+<section id="moodboard">
+  <h2><small>01</small>Moodboard 與創作想法</h2>
+
+
+  <h3>為什麼要做這個</h3>
+  <p class="lead">
+    玻璃是一種很矛盾的材料。它很硬，卻一敲就碎；它把裡面和外面隔開，卻又讓光穿過來。
+    我想做一扇會「聽」的窗：安靜的時候，玻璃自己慢慢長出來、互相合併；聲音一來，它就裂開、掉落。
+    碎掉的地方不會一直空著，新的玻璃會再長回來，像記憶被打散之後，又用別的樣子拼回去。
+  </p>
+
+  <h3>從哪裡取材</h3>
+  <ul>
+    <li><b>教堂的彩繪玻璃窗</b>：碎片緊緊拼在一起，中間是深色的鉛條，光從後面透過來。</li>
+    <li><b>海玻璃</b>：海邊被浪磨過的玻璃碎片，霧霧的藍綠色，色票就是從這裡來的。</li>
+    <li><b>玫瑰窗</b>：一圈一圈往外長的結構，是一開始的構圖起點。</li>
+    <li><b>金繼</b>：日本修補陶瓷的方法，在裂縫上描金，讓破過的地方變成紋路。</li>
+  </ul>
+
+  <h3>收集的靈感</h3>
+  <div class="grid">
+    <figure>
+      <img src="assets/moodboard/reference_stained_glass.jpg" alt="彩繪玻璃窗，上方是紅橙黃，下方是藍綠，碎片之間是深色鉛條" loading="lazy">
+      <figcaption>決定方向的那張參考圖：不規則的 5、6 邊形，鉛條，光從後面透進來。<br><small>來源：<a href="https://www.pinterest.com/pin/1050183206882184226/" target="_blank" rel="noopener">Pinterest</a>（原圖：<a href="https://www.123freevectors.com/vibrant-stained-glass-panel-art-173882522/" target="_blank" rel="noopener">123FreeVectors</a>）</small></figcaption>
+    </figure>
+    <figure>
+      <img src="assets/moodboard/rose_window.jpg" alt="黑色背景中的圓形玫瑰窗" loading="lazy">
+      <figcaption>玫瑰窗。<br><small>來源：<a href="https://www.pinterest.com/pin/545709679852679696/" target="_blank" rel="noopener">Pinterest</a></small></figcaption>
+    </figure>
+    <figure>
+      <img src="assets/moodboard/broken_glass.jpg" alt="碎裂成放射狀的玻璃" loading="lazy">
+      <figcaption>破掉的玻璃：從一點往外放射的裂痕。<br><small>來源：<a href="https://www.pinterest.com/pin/1094445146971590967/" target="_blank" rel="noopener">Pinterest</a></small></figcaption>
+    </figure>
+    <figure>
+      <img src="assets/moodboard/sea_glass.jpg" alt="一堆藍綠色、霧面的海玻璃" loading="lazy">
+      <figcaption>海玻璃：被磨圓、霧面的藍綠色。<br><small>來源：<a href="https://www.pinterest.com/pin/11329436560011652/" target="_blank" rel="noopener">Pinterest</a>（原圖：<a href="https://japanseaglass.com/product/aqua-white-sea-glass-for-crafts/" target="_blank" rel="noopener">japanseaglass.com</a>）</small></figcaption>
+    </figure>
+    <figure>
+      <img src="assets/moodboard/kintsugi.jpg" alt="有金色裂痕的黑色陶盤" loading="lazy">
+      <figcaption>金繼：用金色把裂痕留下來。<br><small>來源：<a href="https://www.pinterest.com/pin/39054721761943436/" target="_blank" rel="noopener">Pinterest</a></small></figcaption>
+    </figure>
+    <figure>
+      <img src="assets/moodboard/seeded_glass_1.jpg" alt="藍色、表面凹凸的氣泡玻璃" loading="lazy">
+      <figcaption>質地參考：氣泡玻璃（一）。<br><small>來源：<a href="https://www.pinterest.com/pin/660340364155753119/" target="_blank" rel="noopener">Pinterest</a></small></figcaption>
+    </figure>
+    <figure>
+      <img src="assets/moodboard/seeded_glass_2.jpg" alt="半透明、錘紋的玻璃" loading="lazy">
+      <figcaption>質地參考：氣泡玻璃（二）。<br><small>來源：<a href="https://www.pinterest.com/pin/553450241687458618/" target="_blank" rel="noopener">Pinterest</a></small></figcaption>
+    </figure>
+    <figure>
+      <img src="assets/moodboard/crackle_glass.jpg" alt="佈滿細碎裂紋的玻璃" loading="lazy">
+      <figcaption>質地參考：冰裂紋。<br><small>來源：<a href="https://www.pinterest.com/pin/934215516470367814/" target="_blank" rel="noopener">Pinterest</a></small></figcaption>
+    </figure>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">搜尋關鍵字：rose window、sea glass、kintsugi、crackle glaze、seeded glass、cracked glass macro、shattering glass high speed</p>
+
+  <h3>選出來的視覺方向</h3>
+  <p>我先把所有可能的方向攤開，再用卡片複選，每一組憑直覺挑：</p>
+  <div class="chips">
+    <span class="chip">不規則多邊形</span><span class="chip">大片加碎屑</span>
+    <span class="chip">海玻璃</span><span class="chip">單色漸層</span>
+    <span class="chip">透明清玻璃</span><span class="chip">有氣泡</span><span class="chip">冰裂紋</span>
+    <span class="chip">粗糙不規則的邊</span><span class="chip">重疊處混色</span><span class="chip">旋轉時閃爍</span>
+    <span class="chip">萬花筒</span><span class="chip">玫瑰窗</span><span class="chip">往下掉</span>
+    <span class="chip">落地彈跳</span><span class="chip">金線修復</span><span class="chip">循環</span>
+    <span class="chip">深色加殘影</span><span class="chip">記憶碎片</span>
+  </div>
+
+  <h3>色票</h3>
+  <p>海玻璃色票來自 <a href="https://palette.tohobeads.jp/?t=Glass+sea&amp;n=6" target="_blank" rel="noopener">TOHOBEADS COLOR STORY PALETTE</a>（關鍵字 Glass sea）。每個顏色都往黑色和白色各延伸一段，玻璃的暗面和透光面就從這條漸層裡挑。後來又加了一組彩色玻璃色票，兩組可以在作品裡切換。</p>
+  <div class="swatches" id="swSea"></div>
+  <div class="swatches" id="swColor"></div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section id="process">
+  <h2><small>02</small>實驗與每個版本</h2>
+  <p class="lead">每走一步就存一個版本、錄一段。很多版本是失敗的，但每一次失敗都讓我更清楚自己要的是什麼。</p>
+
+  <div class="stage">
+    <div class="tag">v0　起點</div>
+    <h3>細胞（換題）</h3>
+    <dl class="notes">
+      <dt>做了什麼</dt><dd>原本想延續作品一的細胞：麥克風音量讓細胞撐大，太大聲就分裂成兩顆。</dd>
+      <dt>結果</dt><dd>細胞比較適合作品一。作品四想要一個跟聲音關係更直接的概念，所以換成玻璃。</dd>
+    </dl>
+  </div>
+
+  <div class="stage">
+    <div class="tag">v1</div>
+    <h3>一圈碎片</h3>
+    <figure>
+      <video src="assets/process/01_ring.mp4" poster="assets/process/01_ring.jpg" controls muted loop playsinline preload="none"></video>
+      <figcaption>用 <code>for</code> 加 <code>rotate</code> 繞成一圈，每片的四個角在各自的角落隨機。</figcaption>
+    </figure>
+    <dl class="notes">
+      <dt>看起來</dt><dd>像一圈磁磚。拿掉 <code>noLoop()</code> 之後，每一格都重抽 <code>random</code>，碎片一直抖、越疊越亮。</dd>
+      <dt>學到</dt><dd><code>random</code> 每一格都會變；要固定形狀，得用 <code>randomSeed</code> 或把形狀存起來。</dd>
+    </dl>
+  </div>
+
+  <div class="stage">
+    <div class="tag">v2</div>
+    <h3>四圈漸層，換上海玻璃色</h3>
+    <figure>
+      <video src="assets/process/02_rings.mp4" poster="assets/process/02_rings.jpg" controls muted loop playsinline preload="none"></video>
+      <figcaption>兩層 <code>for</code>：外層決定第幾圈，內層畫這一圈的每一片。黑底、拿掉邊框。</figcaption>
+    </figure>
+    <dl class="notes">
+      <dt>我的感覺</dt><dd><blockquote>一點都不像玻璃。</blockquote></dd>
+      <dt>接著</dt><dd>試了細長的三角形往外射，結果像海膽。後來找到一張彩繪玻璃的照片，才確定要的是碎片緊緊拼在一起的花窗，也決定先放掉一圈一圈的構圖。</dd>
+    </dl>
+  </div>
+
+  <div class="stage">
+    <div class="tag">v3</div>
+    <h3>不規則的花窗</h3>
+    <figure>
+      <video src="assets/process/03_mosaic.mp4" poster="assets/process/03_mosaic.jpg" controls muted loop playsinline preload="none"></video>
+      <figcaption>先排好格子的交叉點、隨機推歪，再用相鄰四個點畫 <code>quad</code>。黑色的粗邊就是鉛條。</figcaption>
+    </figure>
+    <dl class="notes">
+      <dt>我的感覺</dt><dd><blockquote>比剛剛好看，但沒有光影的透光跟互動感，看起來還太制式。</blockquote></dd>
+    </dl>
+  </div>
+
+  <div class="stage">
+    <div class="tag">v4</div>
+    <h3>玻璃在呼吸</h3>
+    <figure>
+      <video src="assets/process/04_breath.mp4" poster="assets/process/04_breath.jpg" controls muted loop playsinline preload="none"></video>
+      <figcaption>交叉點改用 <code>noise</code> 加上 <code>frameCount</code>，讓每個角慢慢飄動。</figcaption>
+    </figure>
+    <dl class="notes">
+      <dt>我的感覺</dt><dd><blockquote>比較接近我喜歡的效果，但不規則形變成正方形了。</blockquote></dd>
+      <dt>修正</dt><dd><code>noise</code> 的值大多在 0.5 附近，角幾乎沒被推開。改成 <code>random</code> 決定每個角的個性，<code>noise</code> 只負責在那個位置附近呼吸。</dd>
+    </dl>
+  </div>
+
+  <div class="stage">
+    <div class="tag">v5</div>
+    <h3>反光線和氣泡</h3>
+    <figure>
+      <video src="assets/process/05_plastic.mp4" poster="assets/process/05_plastic.jpg" controls muted loop playsinline preload="none"></video>
+      <figcaption>光暈改成用 <code>noise</code> 隨機出現，每片加一道反光線和幾顆小亮點。</figcaption>
+    </figure>
+    <dl class="notes">
+      <dt>我的感覺</dt><dd><blockquote>不像，看起來比較像塑膠，長得很好笑。</blockquote></dd>
+      <dt>接著</dt><dd>先把兩種透光做法畫出來比較，再決定要不要改程式。選了「每片往中心縮小、一層比一層亮」的做法。</dd>
+    </dl>
+  </div>
+
+  <div class="stage fav">
+    <div class="tag">v6　最喜歡的版本</div>
+    <h3>增生、合併、碎裂</h3>
+    <figure>
+      <video src="assets/process/06_shatter.mp4" poster="assets/process/06_shatter.jpg" controls muted loop playsinline preload="none"></video>
+      <figcaption>彩色玻璃色票。玻璃不斷長出、合併；聲音一大，玻璃碎成很多小片砸下來，空出來的地方再長出新的玻璃。</figcaption>
+    </figure>
+    <dl class="notes">
+      <dt>改了什麼</dt><dd>
+        玻璃不再是固定的格子，而是會長大、和隔壁合併成一片、過一陣子再分開。<br>
+        碎片不用羽毛那種慢慢飄，改成直接砸下去，落地小彈一下。<br>
+        顏色在色票的漸層裡隨機，兩組色票都留著，可以切換。<br>
+        碎過的地方留一圈金線，像疤痕。
+      </dd>
+      <dt>聲音</dt><dd>改用課堂的 oav-p5：<code>micLevel</code> 控制干擾程度，<code>kickIsDetected</code> 讓重拍打碎一大片。</dd>
+    </dl>
+  </div>
+
+</section>
+
+<!-- ============ 03 ============ -->
+<section id="final">
+  <h2><small>03</small>最終版本</h2>
+
+  <div class="embed">
+    <iframe src="https://openprocessing.org/sketch/3057957/embed/" allow="microphone; autoplay" title="玻璃花窗 OpenProcessing"></iframe>
+  </div>
+  <a class="btn" href="https://openprocessing.org/sketch/3057957" target="_blank" rel="noopener">在 OpenProcessing 開啟</a>
+  <p style="font-size:14px;color:var(--muted)">點一下畫面，允許麥克風，然後說話、拍手或放音樂。左邊的 OPC 面板可以切換色票、調亮度和碎裂門檻。</p>
+
+  <h3>10 張靜態圖</h3>
+  <div class="grid" id="stills"></div>
+
+  <h3>技術筆記</h3>
+  <table>
+    <tr><th>想做到的事</th><th>用了什麼</th></tr>
+    <tr><td>碎片拼成花窗</td><td>交叉點陣列，相鄰四點畫一片</td></tr>
+    <tr><td>形狀不規則又會呼吸</td><td><code>random</code> 決定個性，<code>noise</code> 加 <code>frameCount</code> 負責飄動</td></tr>
+    <tr><td>透光</td><td>同一片往中心縮小疊 5 層，<code>blendMode(ADD)</code></td></tr>
+    <tr><td>聽聲音</td><td>oav-p5 的 <code>micLevel</code>、<code>kickIsDetected</code></td></tr>
+    <tr><td>碎裂與墜落</td><td>從一點把玻璃切成三角形，每片是一個物件，有自己的速度和旋轉</td></tr>
+    <tr><td>控制面板</td><td>OPC 的 <code>OPC.palette</code>、<code>OPC.slider</code>、<code>OPC.toggle</code></td></tr>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Neve Ning｜新媒體藝術全景課 作品四（吳哲宇）<br>
+    參考圖片版權屬於原作者。
+  </div>
+</footer>
+
+<script>
+// 色票漸層
+const SEA = [["#1A4888","外海群青"],["#2353CC","杜若色"],["#2186A8","縹色"],["#3DB7E0","淺灘綠松"],["#2DDCB6","若竹色"],["#A4B3D2","暮色浪頭白"]];
+const COLOR = [["#E0243A","紅"],["#FF6A1F","橙"],["#FFB321","琥珀"],["#FFE14D","黃"],["#35C97E","綠"],["#1FC4E6","青"],["#2B66F0","鈷藍"],["#8A4FD0","紫"]];
+function ramp(list, el) {
+  for (const [h, name] of list) {
+    const d = document.createElement("div");
+    d.className = "sw";
+    d.innerHTML = '<div class="ramp" style="background:linear-gradient(90deg,#000,' + h + ' 55%,#fff)"></div><div class="t"><b>' + name + "</b>" + h + "</div>";
+    el.appendChild(d);
+  }
+}
+ramp(SEA, document.getElementById("swSea"));
+ramp(COLOR, document.getElementById("swColor"));
+
+// 靜態圖：有檔案就顯示，沒有就留空格
+const stills = document.getElementById("stills");
+for (let i = 1; i <= 10; i++) {
+  const n = String(i).padStart(2, "0");
+  const f = document.createElement("figure");
+  const img = new Image();
+  img.loading = "lazy";
+  img.alt = "最終版本靜態圖 " + n;
+  img.src = "assets/final/still_" + n + ".jpg";
+  img.onerror = () => { f.innerHTML = '<div class="slot">still_' + n + ".jpg</div>"; };
+  f.appendChild(img);
+  stills.appendChild(f);
+}
+
+// 頁首的小花窗：慢慢呼吸的海玻璃
+(function () {
+  const cv = document.getElementById("hero");
+  const ctx = cv.getContext("2d");
+  const P = SEA.map(([h]) => [1, 3, 5].map(k => parseInt(h.slice(k, k + 2), 16)));
+  let W, H, cols, rows, base, ph, cells;
+  const CELL = 70;
+  function build() {
+    W = cv.width = cv.offsetWidth;
+    H = cv.height = cv.offsetHeight;
+    cols = Math.ceil(W / CELL) + 3; rows = Math.ceil(H / CELL) + 3;
+    base = []; ph = []; cells = [];
+    for (let j = 0; j < rows; j++) {
+      base.push([]); ph.push([]);
+      for (let i = 0; i < cols; i++) {
+        base[j].push([(i - 1) * CELL + (Math.random() - .5) * 36, (j - 1) * CELL + (Math.random() - .5) * 36]);
+        ph[j].push(Math.random() * 6.28);
+      }
+    }
+    for (let j = 0; j < rows - 1; j++) for (let i = 0; i < cols - 1; i++)
+      cells.push({ i, j, c: P[Math.floor(Math.random() * P.length)], ph: Math.random() * 6.28, sp: .3 + Math.random() * .5 });
+  }
+  function rgba(c, k, a) { return "rgba(" + c.map(v => Math.round(Math.min(255, v * k))).join(",") + "," + a + ")"; }
+  function frame(ts) {
+    const t = ts / 1000;
+    ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+    const pt = (i, j) => [base[j][i][0] + Math.sin(t * .5 + ph[j][i]) * 7, base[j][i][1] + Math.cos(t * .4 + ph[j][i] * 1.3) * 7];
+    for (const c of cells) {
+      const q = [pt(c.i, c.j), pt(c.i + 1, c.j), pt(c.i + 1, c.j + 1), pt(c.i, c.j + 1)];
+      const cx = (q[0][0] + q[1][0] + q[2][0] + q[3][0]) / 4, cy = (q[0][1] + q[1][1] + q[2][1] + q[3][1]) / 4;
+      const w = .5 + .5 * Math.sin(t * c.sp + c.ph), lit = .3 + .7 * w * w;
+      const path = s => { ctx.beginPath(); q.forEach((p, k) => { const x = p[0] + (cx - p[0]) * s, y = p[1] + (cy - p[1]) * s; k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.closePath(); };
+      path(0); ctx.fillStyle = rgba(c.c, .35 + .4 * lit, 1); ctx.fill();
+      ctx.globalCompositeOperation = "lighter";
+      for (let k = 1; k <= 4; k++) { path(k * .17); ctx.fillStyle = rgba(c.c.map(v => v + (255 - v) * k * .1 * lit), .3 + .4 * lit, .35); ctx.fill(); }
+      ctx.globalCompositeOperation = "source-over";
+      path(0); ctx.lineWidth = 5; ctx.lineJoin = "round"; ctx.strokeStyle = "#05070b"; ctx.stroke();
+    }
+    requestAnimationFrame(frame);
+  }
+  build();
+  addEventListener("resize", build);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
